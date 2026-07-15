@@ -1,3 +1,8 @@
+/* ==========================================
+   IMA STORE - BLUE & WHITE THEME FULL CODE
+   ========================================== */
+
+/* Universal Reset */
 * {
     margin: 0;
     padding: 0;
@@ -5,14 +10,16 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Body Background */
 body {
-    background-color: #f4f6f9; /* Light grayish blue background */
+    background-color: #f4f7fc; /* Elegant Light Blueish Gray */
+    color: #333333;
 }
 
-/* Navbar Styling */
+/* Header & Navigation Styling */
 header {
-    background-color: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff; /* Pure White Header */
+    box-shadow: 0 2px 10px rgba(0, 86, 179, 0.1); /* Subtle Blue Tinted Shadow */
     position: sticky;
     top: 0;
     z-index: 100;
@@ -30,10 +37,11 @@ header {
 .logo {
     font-size: 26px;
     font-weight: 800;
-    color: #0056b3; /* Professional Royal Blue */
+    color: #0056b3; /* Premium Royal Blue */
     letter-spacing: 0.5px;
 }
 
+/* Search Bar Setup */
 .search-box {
     display: flex;
     width: 50%;
@@ -41,43 +49,47 @@ header {
 
 .search-box input {
     width: 100%;
-    padding: 11px 15px;
-    border: 2px solid #0056b3; /* Blue border */
-    border-radius: 4px 0 0 4px;
+    padding: 12px 15px;
+    border: 2px solid #0056b3; /* Blue Border */
+    border-radius: 6px 0 0 6px;
     outline: none;
     font-size: 14px;
+    background-color: #ffffff;
 }
 
 .search-box button {
-    padding: 11px 20px;
-    background-color: #0056b3; /* Blue button */
-    color: white;
+    padding: 12px 25px;
+    background-color: #0056b3; /* Blue Button */
+    color: #ffffff;
     border: none;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 6px 6px 0;
     cursor: pointer;
-    transition: background 0.2s;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
 }
 
 .search-box button:hover {
-    background-color: #004085; /* Darker Blue on hover */
+    background-color: #003d82; /* Darker Blue on Hover */
 }
 
+/* Navigation Links */
 .nav-links a {
     text-decoration: none;
-    color: #333;
+    color: #4a5568;
     margin-left: 25px;
     font-weight: 600;
     position: relative;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
-    color: #0056b3; /* Text turns blue on hover */
+    color: #0056b3; /* Turns Blue on Hover */
 }
 
+/* Cart Counter Notification Badge */
 .cart-icon #cart-count {
-    background-color: #ff9900; /* Amazon-style orange accent for notifications */
-    color: white;
+    background-color: #ff9900; /* Amazon-style Orange Accent for Highlight */
+    color: #ffffff;
     font-size: 11px;
     font-weight: bold;
     padding: 2px 7px;
@@ -87,14 +99,14 @@ header {
     right: -18px;
 }
 
-/* Banner Styling */
+/* Hero Banner Section */
 .banner {
-    background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 40, 133, 0.85)), url('https://picsum.photos/1200/400') no-repeat center center/cover;
-    height: 280px;
+    background: linear-gradient(rgba(0, 86, 179, 0.85), rgba(0, 40, 133, 0.9)), url('https://picsum.photos/1200/400') no-repeat center center/cover;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #ffffff;
     text-align: center;
 }
 
@@ -106,27 +118,29 @@ header {
 
 .banner-content p {
     font-size: 18px;
-    opacity: 0.9;
+    opacity: 0.95;
+    margin-bottom: 20px;
 }
 
 .shop-now-btn {
-    padding: 12px 30px;
-    background-color: #ffffff;
-    color: #0056b3; /* Blue text on white button */
+    padding: 12px 35px;
+    background-color: #ffffff; /* White Button */
+    color: #0056b3; /* Blue Text */
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
-    margin-top: 20px;
-    transition: background 0.2s;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .shop-now-btn:hover {
-    background-color: #e6f0fa; /* Light blueish tint on hover */
+    background-color: #e6f0fa; /* Light Blueish White Tint */
+    transform: translateY(-2px);
 }
 
-/* Products Grid */
+/* Main Content & Products Grid */
 main {
     max-width: 1200px;
     margin: 40px auto;
@@ -134,31 +148,33 @@ main {
 }
 
 .section-title {
-    margin-bottom: 25px;
-    color: #1a1a1a;
-    font-size: 24px;
-    border-left: 5px solid #0056b3; /* Blue indicator on the side */
-    padding-left: 10px;
+    margin-bottom: 30px;
+    color: #1a202c;
+    font-size: 26px;
+    font-weight: 700;
+    border-left: 6px solid #0056b3; /* Blue Branding Line */
+    padding-left: 12px;
 }
 
 .products-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
+    gap: 30px;
 }
 
+/* Individual Product Cards */
 .product-card {
-    background-color: #ffffff;
+    background-color: #ffffff; /* Pure White Card */
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 20px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 86, 179, 0.1); /* Subtle blue shadow */
+    transform: translateY(-6px);
+    box-shadow: 0 12px 20px rgba(0, 86, 179, 0.12); /* Soft Blue Glow */
     border-color: #0056b3;
 }
 
@@ -166,47 +182,49 @@ main {
     max-width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 6px;
-    background-color: #f8fafc;
+    border-radius: 8px;
+    background-color: #f7fafc;
 }
 
 .product-card h3 {
-    font-size: 17px;
+    font-size: 18px;
     margin: 15px 0 8px 0;
-    color: #333;
+    color: #2d3748;
     font-weight: 600;
 }
 
 .price {
-    font-size: 21px;
+    font-size: 22px;
     font-weight: 700;
-    color: #0056b3; /* Blue price tag */
+    color: #0056b3; /* Blue Price Tag */
     margin-bottom: 15px;
 }
 
+/* Add to Cart Button */
 .add-to-cart {
     width: 100%;
     padding: 12px;
-    background-color: #0056b3; /* Primary Blue button */
-    color: white;
+    background-color: #0056b3; /* Royal Blue */
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 700;
-    transition: background 0.2s;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
 }
 
 .add-to-cart:hover {
-    background-color: #004085;
+    background-color: #003d82;
 }
 
-/* Footer */
+/* Footer Design */
 footer {
-    background-color: #002855; /* Very dark corporate blue footer */
+    background-color: #001f4d; /* Deep Dark Corporate Blue */
     color: #ffffff;
     text-align: center;
-    padding: 25px;
+    padding: 30px 20px;
     margin-top: 60px;
     font-size: 14px;
-    opacity: 0.9;
+    letter-spacing: 0.5px;
 }
