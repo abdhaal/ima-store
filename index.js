@@ -16,12 +16,16 @@ function displayProducts() {
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
         
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p class="price">${product.price}</p>
-            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
-        `;
+    
+productCard.innerHTML = `
+    <a href="product.html" style="text-decoration: none; color: inherit;">
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p class="price">${product.price}</p>
+    </a>
+    <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+`;
+
         
         productsGrid.appendChild(productCard);
     });
