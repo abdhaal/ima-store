@@ -1,42 +1,62 @@
 // =========================================================================
-// IMA STORE INTERPRISE MULTI-VENDOR CORE LOGIC SCHEMAS ENGINE
+// IMA STORE MULTI-VENDOR CORE LOGIC LAYER - ADMIN ISOLATION BALANCER
 // =========================================================================
 
 const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL"; 
 const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; 
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// State tracking configurations cache matrix registers layer modules
 let globalCachedProducts = [];
 
-// -------------------------------------------------------------
-// CLIENT ROUTER PANEL CONTROLLER ENGINE SWITCHER
-// -------------------------------------------------------------
+// SECURE DOORWAY: URL-la "?role=admin" endru irundhaal mattumae Admin View unlock aagum
+function enforceEcosystemSecurityProtocols() {
+    const params = new URLSearchParams(window.location.search);
+    const userRole = params.get('role');
+    const adminTabElement = document.getElementById('tab-admin');
+
+    if(userRole === 'admin') {
+        if(adminTabElement) adminTabElement.classList.remove('hidden-admin-node');
+        console.log("IMA Store Admin Node Decoupled & Authenticated.");
+    } else {
+        if(adminTabElement) adminTabElement.classList.add('hidden-admin-node');
+        // Accident-ah direct function hit panna storefront-ku reroute aagividum
+        if(document.getElementById('admin-view').classList.contains('active')) {
+            switchView('storefront-view');
+        }
+    }
+}
+
 function switchView(viewId) {
-    // Structural layouts toggle layers
-    document.querySelectorAll('.view-section').forEach(section => {
-        section.classList.remove('active');
-    });
+    // Force validation check before loading view elements block logic loops
+    if(viewId === 'admin-view') {
+        const params = new URLSearchParams(window.location.search);
+        if(params.get('role') !== 'admin') {
+            alert("Unauthorized Access Attempt.");
+            return;
+        }
+    }
+
+    document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
 
-    // Tab items styling updates loops
-    document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+    document.querySelectorAll('.panel-tab').forEach(tab => tab.classList.remove('active'));
     
-    if(viewId === 'storefront-view') document.getElementById('link-store').classList.add('active');
-    if(viewId === 'cart-view') document.getElementById('link-cart').classList.add('active');
+    if(viewId === 'storefront-view') document.getElementById('tab-store').classList.add('active');
+    if(viewId === 'cart-view') {
+        // Clear active styles when on hidden cart node wrapper
+    }
     if(viewId === 'vendor-view') {
-        document.getElementById('link-vendor').classList.add('active');
+        document.getElementById('tab-vendor').classList.add('active');
         executeVendorCoreLedgerProcessing();
     }
     if(viewId === 'admin-view') {
-        document.getElementById('link-admin').classList.add('active');
+        document.getElementById('tab-admin').classList.add('active');
         executeAdminCoreMasterLedgerProcessing();
     }
 }
 
 // -------------------------------------------------------------
-// FLOW MODULE 1: CUSTOMER CATALOG ENGINE RENDER STORES FRONT
+// CORE REVENUE OPERATIONS ENGINE MECHANICS (10% SPLITTING SYSTEM)
 // -------------------------------------------------------------
 async function bootstrapCustomerStorefrontCatalog() {
     const grid = document.getElementById('storefront-products-grid');
@@ -49,14 +69,13 @@ async function bootstrapCustomerStorefrontCatalog() {
         globalCachedProducts = products || [];
         grid.innerHTML = '';
         
-        // Populate select box inside cart view natively dynamically map rows
         const cartSelect = document.getElementById('cart-product-select');
         if(cartSelect) {
             cartSelect.innerHTML = '';
             globalCachedProducts.forEach(p => {
                 let opt = document.createElement('option');
                 opt.value = p.id;
-                opt.innerText = `${p.name} - (Price: ₹${p.price})`;
+                opt.innerText = `${p.name} - (₹${p.price})`;
                 cartSelect.appendChild(opt);
             });
         }
@@ -64,22 +83,25 @@ async function bootstrapCustomerStorefrontCatalog() {
         if(globalCachedProducts.length > 0) {
             globalCachedProducts.forEach(product => {
                 const card = document.createElement('div');
-                card.classList.add('product-card');
+                card.classList.add('product-clean-card');
                 card.innerHTML = `
-                    <img src="${product.image_url || 'https://picsum.photos/200'}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p class="price">₹${product.price}</p>
-                    <button class="add-to-cart" onclick="triggerImmediateCartIntent(${product.id})"><i class="fa fa-shopping-cart"></i> Buy Product</button>
+                    <div class="product-img-wrapper">
+                        <img src="${product.image_url || 'https://picsum.photos/200'}" alt="${product.name}">
+                    </div>
+                    <div class="product-details-box">
+                        <h3>${product.name}</h3>
+                        <div class="product-price-row">
+                            <span class="act-price">₹${product.price}</span>
+                        </div>
+                        <button class="buy-action-btn" onclick="triggerImmediateCartIntent(${product.id})">Buy Product</button>
+                    </div>
                 `;
                 grid.appendChild(card);
             });
         } else {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:40px;">No marketplace catalogs found in storage nodes layer.</p>';
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:40px;">No marketplace dynamic entries found.</p>';
         }
-    } catch (err) {
-        console.error(err);
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:red; padding:40px;">Database Pipeline Connection Disruption.</p>';
-    }
+    } catch (err) { console.error(err); }
 }
 
 function triggerImmediateCartIntent(productId) {
@@ -109,7 +131,7 @@ async function executeCheckoutOrder() {
     const address = document.getElementById('order-cust-address').value.trim();
 
     if(!select.value || !name || !phone || !address) {
-        alert("Please specify clean shipping destination properties fields data parameters matrix.");
+        alert("Please completely fill shipping target metrics.");
         return;
     }
 
@@ -130,18 +152,12 @@ async function executeCheckoutOrder() {
 
         if (error) throw error;
         
-        alert("🎉 Order Placed Successfully at IMA Store! Processing logistics routing.");
+        alert("🎉 Order Placed Successfully! (Cash on Delivery confirmed)");
         switchView('storefront-view');
         bootstrapCustomerStorefrontCatalog();
-    } catch (err) {
-        console.error(err);
-        alert("Checkout pipeline operations execution halted.");
-    }
+    } catch (err) { alert("Checkout disruption."); }
 }
 
-// -------------------------------------------------------------
-// FLOW MODULE 2: SELLER ENGINE VENDOR PANEL COMMISSIONS BALANCER 
-// -------------------------------------------------------------
 async function handleVendorProductUpload() {
     const name = document.getElementById('vp-title').value.trim();
     const price = document.getElementById('vp-price').value.trim();
@@ -149,7 +165,7 @@ async function handleVendorProductUpload() {
     const desc = document.getElementById('vp-desc').value.trim();
 
     if(!name || !price || !img) {
-        alert("Please clarify primary commercial configurations records map variables matrices.");
+        alert("Please set core listing dynamic properties map variables.");
         return;
     }
 
@@ -159,7 +175,7 @@ async function handleVendorProductUpload() {
         ]);
         if (error) throw error;
 
-        alert("🚀 Factory catalog system rows added securely.");
+        alert("🚀 Sourcing Catalog published securely.");
         document.getElementById('vp-title').value = '';
         document.getElementById('vp-price').value = '';
         document.getElementById('vp-image').value = '';
@@ -167,9 +183,7 @@ async function handleVendorProductUpload() {
         
         bootstrapCustomerStorefrontCatalog();
         executeVendorCoreLedgerProcessing();
-    } catch (err) {
-        console.error(err);
-    }
+    } catch (err) { console.error(err); }
 }
 
 async function executeVendorCoreLedgerProcessing() {
@@ -190,7 +204,7 @@ async function executeVendorCoreLedgerProcessing() {
         if(orders && orders.length > 0) {
             orders.forEach(ord => {
                 gross += ord.total_amount;
-                let commission = Math.round(ord.total_amount * 0.10); // 10% Platform split maths calculation
+                let commission = Math.round(ord.total_amount * 0.10);
                 let payout = ord.total_amount - commission;
 
                 let row = document.createElement('tr');
@@ -198,14 +212,14 @@ async function executeVendorCoreLedgerProcessing() {
                     <td>#${ord.id}</td>
                     <td><b>${ord.product_name}</b></td>
                     <td>₹${ord.total_amount}</td>
-                    <td style="color:red;">₹${commission}</td>
-                    <td style="color:green; font-weight:700;">₹${payout}</td>
-                    <td><span class="badge approved">${ord.order_status}</span></td>
+                    <td style="color:#ef4444;">₹${commission}</td>
+                    <td style="color:var(--success-green); font-weight:700;">₹${payout}</td>
+                    <td><span class="status-tag success">${ord.order_status}</span></td>
                 `;
                 ledger.appendChild(row);
             });
         } else {
-            ledger.innerHTML = '<tr><td colspan="6" style="text-align:center;">No direct ledger entries available.</td></tr>';
+            ledger.innerHTML = '<tr><td colspan="6" style="text-align:center;">No factory sales metrics rows inside stack.</td></tr>';
         }
 
         let totalComm = Math.round(gross * 0.10);
@@ -218,9 +232,6 @@ async function executeVendorCoreLedgerProcessing() {
     } catch (err) { console.error(err); }
 }
 
-// -------------------------------------------------------------
-// FLOW MODULE 3: MASTER ADMIN PANEL GLOBAL DATA SYSTEM TRACKER
-// -------------------------------------------------------------
 async function executeAdminCoreMasterLedgerProcessing() {
     const ledger = document.getElementById('admin-master-ledger');
     if(!ledger) return;
@@ -246,14 +257,12 @@ async function executeAdminCoreMasterLedgerProcessing() {
                     <td><b>${ord.customer_name}</b><br><small>${ord.customer_phone}</small></td>
                     <td>${ord.product_name}</td>
                     <td style="font-weight:700;">₹${ord.total_amount}</td>
-                    <td style="color:var(--primary-blue); font-weight:700;">₹${platformComm}</td>
-                    <td style="color:green;">₹${vendorPayout}</td>
-                    <td><span class="badge approved">${ord.order_status}</span></td>
+                    <td style="color:var(--brand-blue); font-weight:700;">₹${platformComm}</td>
+                    <td style="color:var(--success-green);">₹${vendorPayout}</td>
+                    <td><span class="status-tag success">${ord.order_status}</span></td>
                 `;
                 ledger.appendChild(row);
             });
-        } else {
-            ledger.innerHTML = '<tr><td colspan="7" style="text-align:center;">No global transactions logs recorded.</td></tr>';
         }
 
         document.getElementById('a-metric-sales').innerText = `₹${globalSales}`;
@@ -263,10 +272,7 @@ async function executeAdminCoreMasterLedgerProcessing() {
     } catch (err) { console.error(err); }
 }
 
-// -------------------------------------------------------------
-// CORE ENGINE BOOTSTRAP INIT EVENT LOAD RUNTIMES
-// -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
+    enforceEcosystemSecurityProtocols();
     bootstrapCustomerStorefrontCatalog();
 });
-            
