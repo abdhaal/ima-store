@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign up — Customer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+  <div class="topbar"><a href="/" class="brand">Market<span>place</span></a></div>
+
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="role-toggle">
+        <a class="active" href="/customer/signup.html">Customer</a>
+        <a href="/seller/signup.html">Seller</a>
+      </div>
+
+      <h1>Create your account</h1>
+      <p class="subtitle">Start shopping in minutes.</p>
+
+      <div class="msg"></div>
+
+      <form onsubmit="handleSignUp(event, 'customer')">
+        <div class="field">
+          <label>Full name</label>
+          <input type="text" name="full_name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="tel" name="phone" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" name="password" required minlength="6" autocomplete="new-password" />
+        </div>
+        <button class="btn-primary" type="submit">Create account</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="/customer/login.html">Log in</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabaseClient.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
