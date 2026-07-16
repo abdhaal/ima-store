@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seller dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+  <div class="topbar">
+    <a href="/" class="brand">Market<span>place</span></a>
+    <span class="link-quiet" onclick="logout()">Log out</span>
+  </div>
+
+  <div class="dash-wrap">
+    <div class="dash-card">
+      <h1 id="greeting">Loading…</h1>
+      <p id="status-line"></p>
+      <p>Product listing, inventory, and order management will land here in the next batch.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabaseClient.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    (async () => {
+      const profile = await guardPage("seller");
+      if (!profile) return;
+      document.getElementById("greeting").textContent = `${profile.store_name || "Your store"}`;
+      const statusEl = document.getElementById("status-line");
+      if (profile.is_approved) {
+        statusEl.innerHTML = '<span class="pill">Approved</span> You can start listing products.';
+      } else {
+        statusEl.innerHTML = '<span class="pill pending">Pending approval</span> An admin needs to approve your store before you can sell.';
+      }
+    })();
+  </script>
+</body>
+</html>
