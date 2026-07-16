@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css" />
+<style>
+  .hero { max-width: 760px; margin: 60px auto; padding: 0 16px; text-align: center; }
+  .hero h1 { font-family: var(--font-display); font-size: 2rem; color: var(--navy-900); }
+  .hero p { color: var(--muted); }
+  .cta-row { display: flex; gap: 16px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
+  .cta-row a {
+    padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;
+  }
+  .cta-primary { background: var(--navy-900); color: #fff; }
+  .cta-secondary { background: var(--white); color: var(--navy-900); border: 1px solid #c7d5ea; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="/" class="brand">Market<span>place</span></a>
+  </div>
+
+  <div class="hero">
+    <h1>Everything you need, one storefront.</h1>
+    <p>Shop as a customer, or open your own store and start selling.</p>
+    <div class="cta-row">
+      <a class="cta-primary" href="/customer/login.html">Shop now</a>
+      <a class="cta-secondary" href="/seller/login.html">Sell on Marketplace</a>
+    </div>
+  </div>
+</body>
+</html>
