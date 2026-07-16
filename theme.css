@@ -1,0 +1,186 @@
+/* ===================================================================
+   Theme tokens — deep navy + white, marketplace identity
+   =================================================================== */
+:root {
+  --navy-950: #071427;
+  --navy-900: #0b1f3a;
+  --navy-800: #10294a;
+  --navy-600: #1b4b8f;
+  --navy-500: #2c62b0;
+  --blue-100: #e8eefb;
+  --white: #ffffff;
+  --ink: #0b1220;
+  --muted: #5a6b85;
+  --danger: #c0392b;
+  --success: #1e8e5a;
+  --radius: 10px;
+  --shadow: 0 10px 30px rgba(7, 20, 39, 0.12);
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--blue-100);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  background: var(--navy-950);
+  color: var(--white);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar .brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  color: var(--white);
+}
+.topbar .brand span { color: #9cc0f5; }
+
+/* ---------- Auth page layout ---------- */
+.auth-wrap {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.auth-card {
+  background: var(--white);
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 28px;
+  border: 1px solid #dbe6f5;
+}
+
+.auth-card h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin: 0 0 4px;
+  color: var(--navy-900);
+}
+
+.auth-card .subtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 22px;
+}
+
+/* Signature element: role segmented toggle (Customer / Seller) */
+.role-toggle {
+  display: flex;
+  background: var(--blue-100);
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 22px;
+  position: relative;
+}
+.role-toggle a {
+  flex: 1;
+  text-align: center;
+  padding: 9px 0;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--navy-600);
+  z-index: 1;
+}
+.role-toggle a.active {
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  margin-bottom: 6px;
+}
+.field input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #c7d5ea;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: var(--white);
+}
+.field input:focus {
+  outline: 2px solid var(--navy-500);
+  outline-offset: 1px;
+  border-color: var(--navy-500);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: var(--navy-900);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.btn-primary:hover { background: var(--navy-600); }
+.btn-primary:disabled { background: #8a9bb5; cursor: not-allowed; }
+
+.auth-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.auth-footer a { color: var(--navy-600); font-weight: 600; text-decoration: none; }
+
+.msg {
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: none;
+}
+.msg.error { background: #fbeaea; color: var(--danger); display: block; }
+.msg.success { background: #e7f6ee; color: var(--success); display: block; }
+.msg.info { background: var(--blue-100); color: var(--navy-800); display: block; }
+
+/* ---------- Dashboard placeholder ---------- */
+.dash-wrap { max-width: 720px; margin: 40px auto; padding: 0 16px; }
+.dash-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid #dbe6f5;
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+.dash-card h1 { font-family: var(--font-display); color: var(--navy-900); margin-top: 0; }
+.pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--blue-100);
+  color: var(--navy-800);
+}
+.pill.pending { background: #fdf3e3; color: #9a6a12; }
+.link-quiet { color: var(--navy-600); font-weight: 600; cursor: pointer; }
