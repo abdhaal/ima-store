@@ -3,52 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMA Store | Online Shopping</title>
+    <title>IMA Store | Super Marketplace Multi-Vendor Ecosystem</title>
     <link rel="stylesheet" href="index.css">
-    <!-- FontAwesome Icons-kaga -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <!-- Header & Navigation -->
     <header>
         <div class="navbar">
-            <div class="logo">IMA Store</div>
+            <div class="logo" onclick="switchView('storefront-view')">IMA Store</div>
             <div class="search-box">
-                <input type="text" placeholder="Search for products, brands and more...">
-                <button><i class="fa fa-search"></i></button>
+                <input type="text" id="global-search" placeholder="Search for wholesale lowest price items...">
+                <button onclick="handleSearchQuery()"><i class="fa fa-search"></i></button>
             </div>
             <div class="nav-links">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
-                <a href="cart.html" class="cart-icon">
-                <i class="fa fa-shopping-cart"></i> Cart
-                <span id="cart-count">0</span>
+                <a href="#" id="link-store" class="active" onclick="switchView('storefront-view')"><i class="fa fa-store"></i> Shop</a>
+                <a href="#" id="link-vendor" onclick="switchView('vendor-view')"><i class="fa fa-handshake"></i> Vendor Portal</a>
+                <a href="#" id="link-admin" onclick="switchView('admin-view')"><i class="fa fa-user-shield"></i> Admin Suite</a>
+                <a href="#" id="link-cart" onclick="switchView('cart-view')" class="cart-icon">
+                    <i class="fa fa-shopping-cart"></i> Cart <span id="cart-count">0</span>
                 </a>
-
             </div>
         </div>
     </header>
 
-    <!-- Banner Section -->
-    <section class="banner">
-        <div class="banner-content">
-            <h2>Welcome to IMA Store</h2>
-            <p>Meesho & Amazon Mathiri Top Quality Products, Lowest Price!</p>
-            <button class="shop-now-btn">Shop Now</button>
-        </div>
-    </section>
-
-    <!-- Products Section -->
     <main>
-        <h1 class="section-title">Trending Products</h1>
-        <div class="products-container" id="products-grid">
-            <!-- Products dynamic-ah JavaScript vazhiya inga varum -->
-        </div>
+        <section id="storefront-view" class="view-section active">
+            <div class="banner">
+                <div class="banner-content">
+                    <h2>Wholesale Mega Marketplace</h2>
+                    <p>Meesho Mathiri Factory Pricing & Amazon Quality Guaranteed!</p>
+                    <button class="shop-now-btn" onclick="document.getElementById('trends-title').scrollIntoView({behavior:'smooth'})">Explore Stores</button>
+                </div>
+            </div>
+            <h1 class="section-title" id="trends-title">Trending Catalog Live</h1>
+            <div class="products-container" id="storefront-products-grid">
+                </div>
+        </section>
+
+        <section id="cart-view" class="view-section">
+            <h1 class="section-title">Logistics Order Finalization</h1>
+            <div class="panel-container" style="grid-template-columns: 2fr 1fr;">
+                <div class="form-panel">
+                    <h3 style="margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:5px;">Delivery Configurations</h3>
+                    <div class="form-group"><label>Consignee Customer Name</label><input type="text" id="order-cust-name" placeholder="Name"></div>
+                    <div class="form-group"><label>Mobile Communication Line</label><input type="text" id="order-cust-phone" placeholder="Phone Number"></div>
+                    <div class="form-group"><label>Physical Drop Shipping Address</label><textarea id="order-cust-address" rows="3" placeholder="Address..."></textarea></div>
+                    <div class="form-group">
+                        <label>Select Vendor Product to Buy</label>
+                        <select id="cart-product-select" onchange="calculateCartPriceSummary()"></select>
+                    </div>
+                </div>
+                <div class="table-panel">
+                    <h3>Billing Analytics</h3>
+                    <table style="margin-bottom:20px;">
+                        <tr><td>Item Base Subtotal</td><td id="billing-subtotal" style="font-weight:700;">₹0</td></tr>
+                        <tr><td>Platform Commission & GST</td><td style="color:green; font-weight:700;">FREE</td></tr>
+                        <tr style="border-top:2px dashed #0056b3;"><td style="font-weight:700; color:#0056b3;">Total Billable Cash</td><td id="billing-total" style="font-weight:800; color:#0056b3;">₹0</td></tr>
+                    </table>
+                    <button class="btn-submit" style="background-color: var(--accent-orange);" onclick="executeCheckoutOrder()">Confirm Instant Order (COD)</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="vendor-view" class="view-section">
+            <h1 class="section-title">Supplier Factory Dashboard</h1>
+            
+            <div class="dashboard-grid">
+                <div class="metric-card"><h3>Live Products Count</h3><p id="v-metric-products">0</p></div>
+                <div class="metric-card"><h3>Gross Dispatch Volume</h3><p id="v-metric-gross">₹0</p></div>
+                <div class="metric-card"><h3>Platform Commission Deducted</h3><p id="v-metric-comm" style="color:red;">₹0</p></div>
+                <div class="metric-card"><h3>Net Take-Home Earnings</h3><p id="v-metric-net" style="color:var(--success-green);">₹0</p></div>
+            </div>
+
+            <div class="panel-container">
+                <div class="form-panel">
+                    <h3>Supply New Products Catalog</h3>
+                    <div style="margin-bottom:15px; color:#718096; font-size:12px;">Standard 10% Platform Commission Applied Automatic</div>
+                    <div class="form-group"><label>Product Commercial Title</label><input type="text" id="vp-title" placeholder="e.g., Kanchipuram Silk Saree"></div>
+                    <div class="form-group"><label>Wholesale Retail Price (INR)</label><input type="number" id="vp-price" placeholder="₹"></div>
+                    <div class="form-group"><label>Image Live URL Storage Path</label><input type="text" id="vp-image" placeholder="https://picsum.photos/..."></div>
+                    <div class="form-group"><label>Product Catalog Descriptions</label><textarea id="vp-desc" rows="3" placeholder="Fabric details, size options, etc."></textarea></div>
+                    <button class="btn-submit" onclick="handleVendorProductUpload()">Publish Catalog Row</button>
+                </div>
+                <div class="table-panel">
+                    <h3>Realtime Dispatched Sales Ledger</h3>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <thead>
+                                <tr><th>Order ID</th><th>Product</th><th>Price</th><th>Platform Fee (10%)</th><th>Your Earning</th><th>Status</th></tr>
+                            </thead>
+                            <tbody id="vendor-sales-ledger">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin-view" class="view-section">
+            <h1 class="section-title">Central Management Operations Command</h1>
+            
+            <div class="dashboard-grid">
+                <div class="metric-card"><h3>Platform Global Sales</h3><p id="a-metric-sales">₹0</p></div>
+                <div class="metric-card"><h3>IMA Store Total Orders</h3><p id="a-metric-orders">0</p></div>
+                <div class="metric-card"><h3>Total Revenue (Commission Earned)</h3><p id="a-metric-revenue" style="color:var(--primary-blue);">₹0</p></div>
+            </div>
+
+            <div class="table-panel">
+                <h3>System Global Master Orders Record Engine</h3>
+                <div style="overflow-x:auto; margin-top:15px;">
+                    <table>
+                        <thead>
+                            <tr><th>Order ID</th><th>Customer info</th><th>Product Line</th><th>Gross Price</th><th>Platform Commission</th><th>Vendor Payout</th><th>Ecosystem Status</th></tr>
+                        </thead>
+                        <tbody id="admin-master-ledger">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 IMA Store. All Rights Reserved.</p>
+        <p>&copy; 2026 IMA Store Enterprise Multi-Vendor Marketplace. Powered by Supabase Edge Framework Ecosystem.</p>
     </footer>
 
     <script src="index.js"></script>
